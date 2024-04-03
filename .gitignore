@@ -1,0 +1,16 @@
+/venv/
+/env/
+/.venv/
+/.env/
+*.pyc
+/.vscode/
+/.idea/
+/<editor_name>_settings/
+.env
+database.db
+*.db-journal
+/build/
+/dist/
+/__pycache__/
+/logs/
+/tmp/
