@@ -3,13 +3,16 @@ from .blueprints.users.user import user_bp
 from .blueprints.auth.auth import auth_bp
 from .blueprints.calls.call import call_bp
 from api.models.model import db
-from .config.local import LocalConfig
 from flask_session import Session
-
-def create_app():
-    app = Flask(__name__)
+from .config.local import LocalConfig
     
-    app.config.from_object(LocalConfig)
+
+
+def create_app(config_name='local'):
+    app = Flask(__name__)
+
+    if config_name == "local":    
+        app.config.from_object(LocalConfig)
 
     db.init_app(app)
 
