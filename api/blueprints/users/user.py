@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify,session,abort,current_app
-from API.models.model  import User, db
+from api.models.model  import User, db
 
 
-user_bp = Blueprint('user', __name__, url_prefix='/api/user')
+user_bp = Blueprint('user', __name__, url_prefix='/v1/api/user')
 #List down Users
 @user_bp.route('/users', methods=['GET'])
 def user_list():

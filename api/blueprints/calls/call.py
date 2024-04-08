@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify,session,abort
-from API.models.model  import Blocked_number, db
+from api.models.model  import BlockedNumber, db
 
-call_bp = Blueprint('call', __name__, url_prefix='/api/calls')
+call_bp = Blueprint('call', __name__, url_prefix='/v1/api/calls')
 
 @call_bp.route('/block', methods=['POST'])
 def block():
@@ -13,10 +13,10 @@ def block():
         if not number or not user_id:
             return jsonify({'error': 'Missing required fields'}), 400
         
-        if Blocked_number.query.filter_by(reported_number=number).first():
+        if BlockedNumber.query.filter_by(reported_number=number).first():
             return jsonify({'error': 'Number already Bloacked!'}), 409
         
-        block_number = Blocked_number(user_id=user_id, reported_number=number)
+        block_number = BlockedNumber(user_id=user_id, reported_number=number)
         db.session.add(block_number)
         db.session.commit()
         return jsonify({'message': 'Number Blocked successfully'}), 201
@@ -37,7 +37,7 @@ def unblock():
         return jsonify({'error': 'Mobile number is required'}), 400
 
     # Check if the mobile number is reported by the user
-    blocked = Blocked_number.query.filter_by(user_id=int(user_id), reported_number=mobile_number).first()
+    blocked = BlockedNumber.query.filter_by(user_id=int(user_id), reported_number=mobile_number).first()
     if not blocked:
         return jsonify({'error': 'Mobile number is not Blocked'}), 400
 

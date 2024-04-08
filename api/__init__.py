@@ -2,8 +2,8 @@ from flask import Flask
 from .blueprints.users.user import user_bp
 from .blueprints.auth.auth import auth_bp
 from .blueprints.calls.call import call_bp
-from API.models.model import db
-from API.config.config import Config
+from api.models.model import db
+from api.config.config import Config
 from flask_session import Session
 
 def create_app():
