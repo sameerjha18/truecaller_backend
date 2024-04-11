@@ -2,7 +2,7 @@ from flask import Flask
 from .blueprints.users.user import user_bp
 from .blueprints.auth.auth import auth_bp
 from .blueprints.calls.call import call_bp
-from api.models.model import db
+# from api.models.model import db
 from flask_session import Session
 from .config.local import LocalConfig
     
