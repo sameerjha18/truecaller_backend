@@ -5,6 +5,7 @@ from .blueprints.calls.call import call_bp
 from flask_session import Session
 from .config.local import LocalConfig
 from mongoengine import connect
+from api.cache import cache
 
 
 def create_app(config_name='local'):
@@ -12,6 +13,8 @@ def create_app(config_name='local'):
 
     if config_name == "local":
         app.config.from_object(LocalConfig)
+
+    cache.init_app(app)
 
     connect(
         host=app.config['HOST']

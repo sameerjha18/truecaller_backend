@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify, session, abort, current_app
 from api.models.model import User
 import re
+from api.cache import cache
 
 user_bp = Blueprint('user', __name__, url_prefix='/v1/api/user')
 
 
 # List down Users
 @user_bp.route('/users', methods=['GET'])
+@cache.cached(timeout=5)
 def user_list():
     users_list = [{'id': str(user.id), 'name': user.full_name, 'email': user.email, 'mobile': user.mobile_number} for
                   user in User.objects()]
@@ -15,6 +17,7 @@ def user_list():
 
 # #Single Profile
 @user_bp.route('/profile', methods=['GET'])
+@cache.cached(timeout=5)
 def profile():
     if 'user_id' in session:
         name = request.args.get('name')
